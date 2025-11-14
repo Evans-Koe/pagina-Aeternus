@@ -41,28 +41,29 @@ async function iniciarSesion() {
   const data = await res.json();
 
   if (data.success) {
-    usuarioActual = data.user;
-    alert(`Bienvenido, ${usuarioActual.nombre} 👋`);
-    loginModal.style.display = 'none';
-  } else {
-    alert('Correo o contraseña incorrectos ❌');
-  }
+     usuarioActual = data.user;
+  alert(`Bienvenido, ${usuarioActual.nombre} 👋`);
+  loginModal.style.display = 'none';
+  // Redirigir al inicio de la página
+  window.location.href = "#";
+} else {
+  alert('Correo o contraseña incorrectos ❌');
+}
 }
 
 // --- MODAL DE PRODUCTO ---
 const modal = document.getElementById('modal');
 const modalNombre = document.getElementById('modalNombre');
 const modalPrecio = document.getElementById('modalPrecio');
-const modalMaterial = document.getElementById('modalMaterial');
 const modalImg = document.getElementById('modalImg');
 
-function abrirModal(nombre, precio, material, imagen) {
+function abrirModal(nombre, precio, imagen) {
   modalNombre.textContent = nombre;
   modalPrecio.textContent = precio;
-  modalMaterial.textContent = material;
   modalImg.src = imagen;
   modal.classList.add('open');
 }
+
 function cerrarModal() {
   modal.classList.remove('open');
 }
@@ -70,16 +71,17 @@ function cerrarModal() {
 // --- CARRITO (versión final unificada) ---
 let carrito = [];
 
-// Agregar producto al carrito
 function agregarAlCarrito() {
   const producto = modalNombre.textContent;
+  const cantidad = parseInt(document.getElementById('cantidadProducto').value) || 1;
   const precio = modalPrecio.textContent;
-  const cantidad = 1;
+  const imagen = modalImg.src;
 
-  carrito.push({ producto, precio, cantidad });
-  alert(`${producto} agregado al carrito 🛒`);
+  carrito.push({ producto, cantidad, precio, imagen });
+  alert(`${producto} (x${cantidad}) agregado al carrito 🛒`);
   actualizarContador();
   cerrarModal();
+  
 }
 
 // Mostrar carrito
@@ -92,8 +94,12 @@ function abrirCarrito() {
     lista.innerHTML = "<p>Tu carrito está vacío 🛍️</p>";
   } else {
     lista.innerHTML = carrito.map((p, i) => `
-      <div style="text-align:left; margin:10px 0;">
-        ${i + 1}. <strong>${p.producto}</strong> - ${p.precio} (x${p.cantidad})
+      <div class="item-carrito">
+        <img src="${p.imagen}" alt="${p.producto}">
+        <div class="info-item">
+          <strong>${p.producto}</strong><br>
+          <span>Cantidad: ${p.cantidad}</span>
+        </div>
       </div>
     `).join('');
   }
@@ -131,3 +137,49 @@ async function realizarPedido() {
   actualizarContador();
   cerrarCarrito();
 }
+
+// --- ENVIAR PEDIDO PERSONALIZADO ---
+async function enviarPedidoPersonalizado(e) {
+  e.preventDefault();
+
+  const tipo = document.getElementById('tipo').value;
+  const color = document.getElementById('color').value;
+  const comentarios = document.getElementById('comentarios').value;
+
+  const pedido = { tipo, color, comentarios };
+
+  const res = await fetch('http://localhost:3000/pedido-personalizado', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(pedido)
+  });
+
+  const data = await res.text();
+  alert(data);
+
+  document.getElementById('formPersonalizado').reset();
+}
+
+// Aeternus.js
+window.addEventListener("scroll", () => {
+  const header = document.querySelector("header");
+  if (window.scrollY > 50) {
+    header.classList.add("scrolled");
+  } else {
+    header.classList.remove("scrolled");
+  }
+});
+
+// Aeternus.js
+const observador = new IntersectionObserver((entradas) => {
+  entradas.forEach((entrada) => {
+    if (entrada.isIntersecting) {
+      entrada.target.classList.add("visible");
+    } else {
+      entrada.target.classList.remove("visible"); // se quita al salir
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll(".fade-in").forEach((el) => observador.observe(el));
+ 
