@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="Aeternus.css">
+  <title>Aeternus - Pulseras artesanales</title>
+</head>
+<body>
+
+  <!-- Modal Login -->
+  <div class="login-modal" id="loginModal" style="display:none;">
+    <div class="login-box">
+      <h2>Bienvenido a Aeternus</h2>
+      <input type="text" placeholder="Usuario o correo">
+      <input type="password" placeholder="Contraseña">
+      <button onclick="iniciarSesion()">Iniciar sesión</button>
+      <p>¿No tienes cuenta? <a href="#" onclick="mostrarRegistro()">Regístrate</a></p>
+    </div>
+  </div>
+
+<!-- Modal Registro -->
+<div class="login-modal" id="registroModal" style="display:none;">
+  <div class="login-box">
+    <h2>Crear cuenta</h2>
+
+    <!-- FORMULARIO QUE ENVÍA A FLASK -->
+<input type="text" placeholder="Nombre completo">
+<input type="email" placeholder="Correo electrónico">
+<input type="password" placeholder="Contraseña">
+<button onclick="registrarUsuario()">Registrarse</button>
+
+
+    <p>¿Ya tienes cuenta? <a href="#" onclick="mostrarLogin()">Inicia sesión</a></p>
+  </div>
+</div>
+
+
+  <!-- Header -->
+  <header>
+    <div class="nav">
+      <div class="logo">Aeternus</div>
+      <nav>
+        <a href="#">Inicio</a>
+        <a href="#Nosotros">Nosotros</a>
+        <a href="#valores">Valores</a>
+        <a href="#Catalogo">Catálogo</a>
+        <a href="#" onclick="mostrarLogin()">Registrate</a>
+      </nav>
+      <div class="carrito-icono" onclick="abrirCarrito()">
+  🛒  <span id="contadorCarrito">0</span>
+</div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="fondo"></div>
+    <div class="contenido"></div>
+    <h1>Pulseras Aeternus</h1>
+    <p>Estilo que trasciende el tiempo</p>
+    </div>
+  </section>
+
+  <!-- Quienes Somos -->
+<section id="Nosotros" class="quienes-somos">
+  <div class="fila">
+    <div class="texto">
+      <h2>Quiénes Somos</h2>
+      <p>
+        Aeternus es una compañía que produce accesorios artesanales de moda contemporánea,
+        enfocada en la creación de aditivos a las prendas personales, buscando alzar sutilmente
+        la atractividad de nuestros consumidores sin la necesidad de gastar exorbitantes cantidades
+        de recursos.
+      </p>
+    </div>
+    <div class="imagen">
+      <img src="https://esmeraldascolombia.com/cdn/shop/products/PUESTA-PULSERA-COMPLETA-NEGRA-COMPARATIVA4y6mm.jpg?v=1666303900&width=1024" alt="Pulseras Aeternus">
+    </div>
+
+    <div class="imagen">
+      <img src="https://mariatjoyeria.com/cdn/shop/files/IMG-20240704_131145.jpg?v=1748958072&width=1445" alt="Taller Aeternus">
+    </div>
+    <div class="texto">
+      <h2>Nuestro Compromiso</h2>
+      <p>
+        En nuestra empresa, desempeñamos labores exhaustivas con el fin de brindar un servicio
+        de calidad y productos a la altura de los estándares competitivos del mercado,
+        destacándonos por nuestro compromiso con la armonía visual y la responsabilidad.
+      </p>
+    </div>
+  </div>
+</section>
+
+  <!-- Nuestros Valores -->
+  <section id="valores" class="info">
+    <h2>Nuestros Valores</h2>
+    <div class="valores">
+      <div class="valor">
+        <h3>Calidad</h3>
+        <p>Usamos materiales cuidadosamente seleccionados para garantizar durabilidad y estilo en cada creación.</p>
+      </div>
+      <div class="valor">
+        <h3>Responsabilidad</h3>
+        <p>Asumimos cada compromiso con seriedad y dedicación, cumpliendo con los plazos para garantizan la confianza de nuestros clientes.</p>
+      </div>
+      <div class="valor">
+        <h3>Autenticidad</h3>
+        <p>Creemos en la individualidad y en expresar la esencia de cada persona a través de nuestros diseños.</p>
+      </div>
+      <div class="valor">
+        <h3>Elegancia</h3>
+        <p>Diseñamos con un enfoque minimalista y sofisticado, creando accesorios que trascienden el tiempo.</p>
+      </div>
+      <div class="valor">
+        <h3>Adaptabilidad</h3>
+        <p>Nos adaptamos a las necesidades de cada cliente, ajustando nuestros diseños para ofrecer soluciones únicas.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Catálogo -->
+  <section id="Catalogo" class="catalogo">
+    <!-- Productos (idénticos a la versión anterior) -->
+    <div class="producto" onclick="abrirModal('Pulsera Ámbar','RD$2,350','https://i.etsystatic.com/32212162/r/il/b7d878/4810554328/il_1588xN.4810554328_vmz5.jpg')">
+      <img src="https://i.etsystatic.com/32212162/r/il/b7d878/4810554328/il_1588xN.4810554328_vmz5.jpg" alt="Pulsera Ámbar">
+      <div class="info-prod"><h3>Pulsera Raíces del Alma</h3><div class="precio">RD$2,350</div></div>
+    </div>
+    <div class="producto" onclick="abrirModal('Pulsera Ámbar','RD$2,350','https://laboutiquejoyas.com/cdn/shop/files/este_lbjuly-46_540x@2x.jpg?v=1725572991')">
+      <img src="https://laboutiquejoyas.com/cdn/shop/files/este_lbjuly-46_540x@2x.jpg?v=1725572991" alt="Pulsera Lunar">
+      <div class="info-prod"><h3>Pulsera Luz de Luna</h3><div class="precio">RD$3,150</div></div>
+    </div>
+    <div class="producto" onclick="abrirModal('Pulsera Ámbar','RD$2,350','https://i.etsystatic.com/19090283/r/il/5a3a64/2204587761/il_1588xN.2204587761_5y8o.jpg')">
+      <img src="https://i.etsystatic.com/19090283/r/il/5a3a64/2204587761/il_1588xN.2204587761_5y8o.jpg" alt="Pulsera Lunar">
+      <div class="info-prod"><h3>Pulsera Noche Real</h3><div class="precio">RD$3,150</div></div>
+    </div>
+    <div class="producto" onclick="abrirModal('Pulsera Ámbar','RD$2,350','https://acdn-us.mitiendanube.com/stores/001/362/098/products/1-11-d315d26c0dce0bde0c16574803915702-1024-1024.webp')">
+      <img src="https://acdn-us.mitiendanube.com/stores/001/362/098/products/1-11-d315d26c0dce0bde0c16574803915702-1024-1024.webp" alt="Pulsera Lunar">
+      <div class="info-prod"><h3>Pulsera Almas Gemelas</h3><div class="precio">RD$3,150</div></div>
+    </div>
+    <div class="producto" onclick="abrirModal('Pulsera Ámbar','RD$2,350','https://m.media-amazon.com/images/I/71Rm1X6YjxL._AC_SX679_.jpg')">
+      <img src="https://m.media-amazon.com/images/I/71Rm1X6YjxL._AC_SX679_.jpg" alt="Pulsera Lunar">
+      <div class="info-prod"><h3>Pulsera Armonía Sagrada</h3><div class="precio">RD$3,150</div></div>
+    </div>
+    <div class="producto" onclick="abrirModal('Pulsera Ámbar','RD$2,350','https://acdn-us.mitiendanube.com/stores/804/588/products/picsart_23-07-06_15-22-10-3901-9fcdcefb0730f480b016886752669154-1024-1024.webp')">
+      <img src="https://acdn-us.mitiendanube.com/stores/804/588/products/picsart_23-07-06_15-22-10-3901-9fcdcefb0730f480b016886752669154-1024-1024.webp" alt="Pulsera Lunar">
+      <div class="info-prod"><h3>Pulsera Aura de Oro</h3><div class="precio">RD$3,150</div></div>
+    </div>
+    <div class="producto" onclick="abrirModal('Pulsera Ámbar','RD$2,350','https://i.etsystatic.com/6358679/r/il/18ccc3/1429453448/il_1588xN.1429453448_s8gt.jpg')">
+      <img src="https://i.etsystatic.com/6358679/r/il/18ccc3/1429453448/il_1588xN.1429453448_s8gt.jpg" alt="Pulsera Lunar">
+      <div class="info-prod"><h3>Pulsera Raíz Nómada</h3><div class="precio">RD$3,150</div></div>
+    </div>
+    <div class="producto" onclick="abrirModal('Pulsera Ámbar','RD$2,350','https://mellany.pe/wp-content/uploads/2024/02/PULSERA-INFINITO-TRENZADA-GOLD-MELLANY-JOYAS-Y-ACCESORIOS.jpg')">
+      <img src="https://mellany.pe/wp-content/uploads/2024/02/PULSERA-INFINITO-TRENZADA-GOLD-MELLANY-JOYAS-Y-ACCESORIOS.jpg" alt="Pulsera Lunar">
+      <div class="info-prod"><h3>Pulsera Nudo del Destino</h3><div class="precio">RD$3,150</div></div>
+    </div>
+
+<section id="personalizados" class="personalizados">
+  <h2>Pedidos Personalizados</h2>
+  <form id="formPersonalizado" onsubmit="enviarPedidoPersonalizado(event)">
+    <div class="fila">
+      <!-- Tipo de pulsera -->
+      <select id="tipo" name="tipo" required>
+        <option value="" disabled selected>Selecciona el tipo de pulsera</option>
+        <option value="hilo">Pulsera de Hilo</option>
+        <option value="cuentas">Pulsera con Cuentas</option>
+      </select>
+
+      <!-- Color principal -->
+      <select id="color" name="color" required>
+        <option value="" disabled selected>Selecciona el color principal</option>
+        <option value="negro">Negro</option>
+        <option value="Morado">Morado</option>
+        <option value="Verde">Verde</option>
+        <option value="azul">Azul</option>
+        <option value="Ojo de Tigre">Ojo de Tigre</option>
+        <option value="Blanco">Blanco</option>
+        <option value="Jaspe">Jaspe</option>
+      </select>
+    </div>
+
+      <!-- Tamaño -->
+      <select id="tamaño" name="tamaño">
+        <option value="" disabled selected>Selecciona el tamaño</option>
+        <option value="pequeño">Pequeño</option>
+        <option value="mediano">Mediano</option>
+        <option value="grande">Grande</option>
+      </select>
+    </div>
+
+    <!-- Comentarios -->
+    <textarea id="comentarios" name="comentarios" rows="4" placeholder="Escribe comentarios adicionales aquí..."></textarea>
+
+    <button type="submit" class="btn">Enviar Pedido</button>
+  </form>
+</section>
+
+    
+    <!-- Modal producto -->
+<div class="modal" id="modal">
+  <button class="cerrar" onclick="cerrarModal()">✕</button>
+  <div class="modal-content">
+    <img id="modalImg" src="" alt="Producto">
+    <div class="modal-info">
+      <h3 id="modalNombre"></h3>
+      <p><strong>Precio:</strong> <span id="modalPrecio"></span></p>
+
+      <div class="cantidad">
+        <label for="cantidadProducto"><strong>Cantidad:</strong></label>
+        <input type="number" id="cantidadProducto" value="1" min="1">
+      </div>
+
+      <button class="btn" onclick="agregarAlCarrito()">Agregar al carrito</button>
+    </div>
+  </div>
+</div>
+  </section>
+
+  <!-- Modal del carrito -->
+<div id="modalCarrito" class="modal-carrito">
+  <div class="carrito-contenido">
+    <h2>🛒 Tu carrito</h2>
+    <div id="listaCarrito"></div>
+    <button class="btn" onclick="realizarPedido()">Realizar pedido</button>
+    <button class="btn" onclick="cerrarCarrito()">Cerrar</button>
+  </div>
+</div>
+
+  <!-- Footer -->
+  <footer>
+  <div class="izquierda">
+    <div class="contacto">
+      <h2>Contáctanos</h2>
+      <p>849-448-2448</p>
+    </div>
+
+    <div class="horario">
+      <h2>Horario</h2>
+      <p>Lunes a Viernes: 9:00 AM - 4:00 p.m.</p>
+    </div>
+  </div>
+
+  <div class="derechos">
+    <p>© 2025 Aeternus — Todos los derechos reservados.</p>
+  </div>
+</footer> 
+
+  <script src="Aeternus.js"></script>
+</body>
+</html>
