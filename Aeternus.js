@@ -182,4 +182,15 @@ const observador = new IntersectionObserver((entradas) => {
 }, { threshold: 0.2 });
 
 document.querySelectorAll(".fade-in").forEach((el) => observador.observe(el));
- 
+
+// ---------- CARRUSEL AUTOMÁTICO ----------
+let indiceSlide = 0;
+const slides = document.querySelectorAll('.carrusel .slide');
+
+function cambiarSlide() {
+  slides[indiceSlide].classList.remove('activo');
+  indiceSlide = (indiceSlide + 1) % slides.length;
+  slides[indiceSlide].classList.add('activo');
+}
+
+setInterval(cambiarSlide, 4000); // cambia cada 4 segundos
