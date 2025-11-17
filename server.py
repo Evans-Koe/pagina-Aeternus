@@ -1,33 +1,51 @@
 from flask import Flask, request, jsonify
-import pyodbc
+import psycopg2
 from flask_cors import CORS
+import smtplib
+from email.mime.text import MIMEText
+from config_email import EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASS
 
 app = Flask(__name__)
-CORS(app)  # Permite peticiones desde tu HTML local
+CORS(app)
 
-#CONFIGURACIÓN DE CONEXIÓN
+# CONFIGURACIÓN DE CONEXIÓN
 db_config = {
-    'server': r'DESKTOP-1OVVT26\EVANS72',
+    'host': 'localhost',
+    'port': '5432',
     'database': 'AeternusDB',
-    'username': 'EvansAdmin',      # cambia si usas otro usuario
-    'password': '123321123',       # contraseña de SQL Server
-    'driver': '{ODBC Driver 17 for SQL Server}'
+    'user': 'postgres',
+    'password': '123321123mm'
 }
 
 def conectar_bd():
     try:
-        conn = pyodbc.connect(
-            f"DRIVER={db_config['driver']};"
-            f"SERVER={db_config['server']};"
-            f"DATABASE={db_config['database']};"
-            f"UID={db_config['username']};"
-            f"PWD={db_config['password']};"
-            "TrustServerCertificate=yes;"
+        conn = psycopg2.connect(
+            host=db_config['host'],
+            port=db_config['port'],
+            database=db_config['database'],
+            user=db_config['user'],
+            password=db_config['password']
         )
         return conn
     except Exception as e:
         print("❌ Error de conexión:", e)
         return None
+
+def enviar_correo(destinatario, asunto, mensaje):
+    try:
+        msg = MIMEText(mensaje, "plain", "utf-8")
+        msg["From"] = EMAIL_USER
+        msg["To"] = destinatario
+        msg["Subject"] = asunto
+
+        server = smtplib.SMTP(EMAIL_HOST, EMAIL_PORT)
+        server.starttls()
+        server.login(EMAIL_USER, EMAIL_PASS)
+        server.send_message(msg)
+        server.quit()
+        print("✅ Correo enviado correctamente")
+    except Exception as e:
+        print("❌ Error al enviar correo:", e)
 
 # REGISTRO DE USUARIO
 @app.post('/registrar')
@@ -42,8 +60,10 @@ def registrar_usuario():
         return "Error de conexión a la base de datos ❌", 500
     try:
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO usuarios (nombre, correo, contrasena) VALUES (?, ?, ?)",
-                       (nombre, correo, contrasena))
+        cursor.execute(
+            "INSERT INTO usuarios (nombre, correo, contrasena) VALUES (%s, %s, %s)",
+            (nombre, correo, contrasena)
+        )
         conn.commit()
         return "Usuario registrado correctamente ✅"
     except Exception as e:
@@ -56,16 +76,20 @@ def registrar_usuario():
 @app.post('/login')
 def login_usuario():
     datos = request.json
-    correo = datos.get('correo')
-    contrasena = datos.get('contrasena')
+    correo = (datos.get('correo') or '').strip()
+    contrasena = (datos.get('contrasena') or '').strip()
 
     conn = conectar_bd()
     if not conn:
         return "Error de conexión a la base de datos ❌", 500
     try:
         cursor = conn.cursor()
-        cursor.execute("SELECT id, nombre, correo FROM usuarios WHERE correo=? AND contrasena=?", (correo, contrasena))
+        cursor.execute(
+            "SELECT id, nombre, correo FROM usuarios WHERE correo=%s AND contrasena=%s",
+            (correo, contrasena)
+        )
         fila = cursor.fetchone()
+
         if fila:
             return jsonify({"success": True, "user": {"id": fila[0], "nombre": fila[1], "correo": fila[2]}})
         else:
@@ -76,7 +100,7 @@ def login_usuario():
     finally:
         conn.close()
 
-# GUARDAR PEDIDO
+# GUARDAR PEDIDO Y ENVIAR CORREO
 @app.post('/pedido')
 def registrar_pedido():
     datos = request.json
@@ -86,18 +110,86 @@ def registrar_pedido():
 
     conn = conectar_bd()
     if not conn:
-        return "Error de conexión a la base de datos ❌", 500
+        return jsonify({"error": "Error de conexión a la base de datos ❌"}), 500
+
     try:
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO pedidos (usuario_id, producto, cantidad) VALUES (?, ?, ?)",
-                       (usuario_id, producto, cantidad))
+
+        # ---- GUARDAR PEDIDO EN LA BASE DE DATOS ----
+        cursor.execute(
+            "INSERT INTO pedidos (usuario_id, producto, cantidad) VALUES (%s, %s, %s)",
+            (usuario_id, producto, cantidad)
+        )
         conn.commit()
-        return "Pedido guardado correctamente 🛍️"
+
+        # ---- ENVIAR PEDIDO AL CORREO ----
+        mensaje = f"""
+📦 NUEVO PEDIDO RECIBIDO
+
+ID del usuario: {usuario_id}
+Producto: {producto}
+Cantidad: {cantidad}
+"""
+
+        enviar_correo(
+            destinatario="aeternus.acc@gmail.com",
+            asunto="Nuevo pedido recibido - Aeternus",
+            mensaje=mensaje
+        )
+
+        return jsonify({"success": True, "message": "Pedido guardado y correo enviado correctamente"}), 200
+
     except Exception as e:
-        print("❌ Error al guardar pedido:", e)
-        return "Error al guardar pedido ❌", 500
+        print("❌ Error al guardar o enviar pedido:", e)
+        return jsonify({"error": "Error al guardar o enviar pedido"}), 500
+
     finally:
         conn.close()
+
+
+# PEDIDO PERSONALIZADO
+@app.post('/pedido-personalizado')
+def pedido_personalizado():
+    datos = request.json
+
+    # Asignar valores por defecto si el usuario no envía alguno
+    tipo = datos.get('tipo', 'No especificado')
+    color = datos.get('color', 'No especificado')
+    decoraciones = datos.get('decoraciones', 'Ninguna')
+    comentarios = datos.get('comentarios', 'Sin comentarios')
+
+    # Construir mensaje de manera segura
+    mensaje = f"""
+🧵 NUEVO PEDIDO PERSONALIZADO 🧵
+
+Tipo de pulsera: {tipo}
+Color: {color}
+Decoraciones: {decoraciones}
+Comentarios: {comentarios}
+"""
+
+    try:
+        # Enviar correo
+        remitente = "aeternus.acc@gmail.com"  # tu correo
+        destinatario = "aeternus.acc72@gmail.com"  # correo receptor
+        password = "smqz txfi vuub cwax"  # clave de aplicación
+
+        msg = MIMEText(mensaje, "plain", "utf-8")
+        msg['Subject'] = "Nuevo pedido personalizado - Aeternus"
+        msg['From'] = remitente
+        msg['To'] = destinatario
+
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(remitente, password)
+        server.send_message(msg)
+        server.quit()
+
+        return "✅ Pedido personalizado enviado correctamente"
+    except Exception as e:
+        print("❌ Error al enviar correo:", e)
+        return "Error al enviar el pedido ❌", 500
+
 
 # INICIAR SERVIDOR
 if __name__ == '__main__':
