@@ -144,9 +144,10 @@ async function enviarPedidoPersonalizado(e) {
 
   const tipo = document.getElementById('tipo').value;
   const color = document.getElementById('color').value;
+  const tamano = document.getElementById('tamano').value;
   const comentarios = document.getElementById('comentarios').value;
 
-  const pedido = { tipo, color, comentarios };
+  const pedido = { tipo, color, tamano, comentarios };
 
   const res = await fetch('http://localhost:3000/pedido-personalizado', {
     method: 'POST',
