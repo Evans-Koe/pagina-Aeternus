@@ -717,138 +717,353 @@ footer p {
   text-align: center;
 }
 
-/* --- Responsive --- */
-@media (max-width: 1200px) {
-    .nav {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+/* Responsive optimizado para móviles (iPhone, Samsung, Xiaomi, etc.) */
 
-    .fila {
-        grid-template-columns: 1fr;
-    }
+/* Ajustes generales para todo el sitio en pantallas pequeñas */
+@media (max-width: 600px) {
+  body {
+    font-size: 15px;
+    line-height: 1.4;
+  }
 
-    .catalogo {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
+  header {
+    padding: 8px 0;
+  }
 
-    .personalizados {
-        width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-        padding: 20px;
-    }
+  .nav {
+    flex-direction: column;
+    gap: 8px;
+    margin-right: 0;
+  }
 
-    .personalizados .fila {
-        flex-direction: column;
-        gap: 15px;
-    }
+  nav a {
+    font-size: 14px;
+    margin: 3px;
+  }
 
-    .hero h1 {
-        font-size: 28px;
-        margin-top: 80px;
-    }
+  /* Hero reducido */
+  .hero {
+    height: 65vh;
+  }
 
-    .hero p {
-        font-size: 16px;
-    }
+  .hero h1 {
+    margin-top: 120px;
+    font-size: 22px;
+  }
 
-    .texto {
-        padding: 30px 20px;
-    }
+  .hero p {
+    font-size: 14px;
+  }
 
-    .valor {
-        max-width: 90%;
-        margin: auto;
-    }
+  .carrusel .slide {
+    filter: brightness(55%);
+  }
 
-    nav a {
-        margin: 5px;
-        font-size: 14px;
-    }
-
-    .carrito-icono {
-        right: 15px;
-        font-size: 20px;
-        padding: 5px 8px;
-    }
-
-    #modalCarrito .contenido-carrito {
-        width: 95%;
-        padding: 20px;
-    }
-
-    .modal-content img {
-        height: auto;
-    }
+  /* Sección quienes somos (mantener diseño tipo laptop en móviles) */
+.quienes-somos {
+  max-width: 1500px;
+  margin: auto;
+  padding: 0;
 }
 
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 24px;
-        margin-top: 60px;
-    }
-
-    .hero p {
-        font-size: 14px;
-    }
-
-    .catalogo {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
-    .fila {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .personalizados input,
-    .personalizados select,
-    .personalizados textarea {
-        max-width: 100%;
-    }
-
-    .valor {
-        flex: 1 1 100%;
-        max-width: 100%;
-    }
+.fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  background-color: white;
 }
 
-@media (max-width: 480px) {
-    nav {
-        flex-direction: column;
-        align-items: center;
-    }
+.texto {
+  background-color: #f4f4f4;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
-    .hero h1 {
-        font-size: 20px;
-        margin-top: 50px;
-    }
+.imagen img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
 
-    .hero p {
-        font-size: 12px;
-    }
+/* Mantener estilo de laptop en móviles */
+@media (max-width: 600px) {
+  .fila {
+    grid-template-columns: 1fr;
+  }
 
-    .carrito-icono {
-        font-size: 18px;
-        padding: 4px 6px;
-    }
+  .texto {
+    padding: 40px 30px;
+  }
 
-    .personalizados {
-        padding: 15px;
-    }
+  .imagen img {
+    height: 280px;
+  }
+}
 
-    .texto {
-        padding: 20px 15px;
-    }
+  .fila {
+    grid-template-columns: 1fr;
+  }
 
-    .modal-content, .login-box, .carrito-contenido {
-        width: 95%;
-        padding: 15px;
-    }
+  .texto {
+    padding: 22px 18px;
+  }
 
-    .modal-content img {
-        height: auto;
-    }
+  .texto h2 {
+    font-size: 20px;
+  }
+
+  .texto p {
+    font-size: 14px;
+  }
+
+  .imagen img {
+    height: 240px;
+  }
+
+  /* Catálogo compacto */
+  .catalogo {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 10px;
+  }
+
+  .producto img {
+    height: 200px;
+  }
+
+  /* Modal compacto */
+  .modal-content {
+    width: 92%;
+  }
+
+  .modal-content img {
+    height: 250px;
+  }
+
+  .cerrar {
+    top: 40px;
+    right: 20px;
+    font-size: 28px;
+  }
+
+  /* Personalizados */
+  .personalizados {
+    width: 95%;
+    margin: 20px auto;
+    padding: 20px;
+  }
+
+  .personalizados .fila {
+    flex-direction: column;
+  }
+
+  .personalizados input,
+  .personalizados textarea,
+  .personalizados select {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  /* Footer */
+  footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .derechos {
+    margin-right: 0;
+  }
+
+  /* Carrito */
+  .carrito-icono {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: var(--fondo);
+  color: var(--secundario);
+  font-size: 22px;
+  padding: 5px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  z-index: 400;
+}
+
+.carrito-icono:hover {
+  background: var(--gris);
+  transition: 1s;
+}
+
+#contadorCarrito {
+  background: var(--secundario);
+  color: var(--primario);
+  font-weight: bold;
+  padding: 3px 7px;
+  border-radius: 50%;
+  margin-left: 5px;
+  font-size: 14px;
+}
+
+  #modalCarrito .contenido-carrito {
+    width: 92%;
+  }
+}
+
+/* =============================== */
+/*  RESPONSIVE PARA TODAS LAS LAPTOPS  */
+/*  (Pantallas medianas y grandes)     */
+/* =============================== */
+
+/* Laptops pequeñas (entre 900px y 1200px) */
+@media (max-width: 1200px) and (min-width: 900px) {
+
+  .nav {
+    max-width: 1000px;
+    padding: 12px 20px;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+    margin-top: 150px;
+  }
+
+  .hero p {
+    font-size: 17px;
+  }
+
+  .fila {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .texto {
+    padding: 50px 40px;
+  }
+
+  .imagen img {
+    height: 350px;
+  }
+
+  .catalogo {
+    max-width: 1000px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .producto img {
+    height: 230px;
+  }
+
+  .personalizados {
+    width: 80%;
+    padding: 25px 60px;
+  }
+
+  footer {
+    padding: 20px 50px;
+  }
+}
+
+/* Laptops muy pequeñas (entre 700px y 899px) */
+@media (max-width: 899px) and (min-width: 700px) {
+
+  .nav {
+    max-width: 900px;
+    padding: 10px 15px;
+  }
+
+  nav a {
+    font-size: 14px;
+    margin: 0 10px;
+  }
+
+  .hero {
+    height: 70vh;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+    margin-top: 140px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .quienes-somos {
+    padding: 0;
+  }
+
+  .fila {
+    grid-template-columns: 1fr;
+  }
+
+  .texto {
+    padding: 35px 25px;
+  }
+
+  .imagen img {
+    height: 260px;
+  }
+
+  .catalogo {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    padding: 15px;
+  }
+
+  .producto img {
+    height: 210px;
+  }
+
+  .personalizados {
+    width: 90%;
+    padding: 20px;
+  }
+
+  footer {
+    padding: 20px;
+    text-align: center;
+  }
+}
+
+/* Laptops grandes + Monitores (más de 1400px) */
+@media (min-width: 1400px) {
+
+  .nav {
+    max-width: 1400px;
+  }
+
+  .hero h1 {
+    font-size: 42px;
+  }
+
+  .hero p {
+    font-size: 20px;
+  }
+
+  .quienes-somos {
+    max-width: 1600px;
+  }
+
+  .fila .imagen img {
+    height: 450px;
+  }
+
+  .catalogo {
+    max-width: 1400px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .producto img {
+    height: 300px;
+  }
+
+  .personalizados {
+    width: 60%;
+  }
+
+  footer {
+    padding: 30px 100px;
+  }
 }
