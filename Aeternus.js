@@ -44,12 +44,45 @@ async function iniciarSesion() {
      usuarioActual = data.user;
   alert(`Bienvenido, ${usuarioActual.nombre} 👋`);
   loginModal.style.display = 'none';
-  // Redirigir al inicio de la página
   window.location.href = "#";
 } else {
   alert('Correo o contraseña incorrectos ❌');
 }
 }
+
+// --- MENÚ HAMBURGUESA ---
+function toggleMenu() {
+  const nav = document.querySelector('nav');
+  const menuHamburguesa = document.querySelector('.menu-hamburguesa');
+  
+  nav.classList.toggle('activo');
+  
+  // Animación del ícono hamburguesa
+  const spans = menuHamburguesa.querySelectorAll('span');
+  if (nav.classList.contains('activo')) {
+    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+  } else {
+    spans[0].style.transform = 'none';
+    spans[1].style.opacity = '1';
+    spans[2].style.transform = 'none';
+  }
+}
+
+// Cerrar menú al hacer clic en un enlace
+document.addEventListener('DOMContentLoaded', () => {
+  const navLinks = document.querySelectorAll('nav a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      const nav = document.querySelector('nav');
+      const menuHamburguesa = document.querySelector('.menu-hamburguesa');
+      if (nav.classList.contains('activo')) {
+        toggleMenu();
+      }
+    });
+  });
+});
 
 // --- MODAL DE PRODUCTO ---
 const modal = document.getElementById('modal');
@@ -81,7 +114,6 @@ function agregarAlCarrito() {
   alert(`${producto} (x${cantidad}) agregado al carrito 🛒`);
   actualizarContador();
   cerrarModal();
-  
 }
 
 // Mostrar carrito
@@ -105,7 +137,7 @@ function abrirCarrito() {
   }
 }
 
-// ❌ Cerrar carrito
+// Cerrar carrito
 function cerrarCarrito() {
   document.getElementById('modalCarrito').classList.remove('open');
 }
@@ -161,7 +193,7 @@ async function enviarPedidoPersonalizado(e) {
   document.getElementById('formPersonalizado').reset();
 }
 
-// Aeternus.js
+// Header con scroll
 window.addEventListener("scroll", () => {
   const header = document.querySelector("header");
   if (window.scrollY > 50) {
@@ -171,20 +203,20 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// Aeternus.js
+// Animaciones de aparición
 const observador = new IntersectionObserver((entradas) => {
   entradas.forEach((entrada) => {
     if (entrada.isIntersecting) {
       entrada.target.classList.add("visible");
     } else {
-      entrada.target.classList.remove("visible"); // se quita al salir
+      entrada.target.classList.remove("visible");
     }
   });
 }, { threshold: 0.2 });
 
 document.querySelectorAll(".fade-in").forEach((el) => observador.observe(el));
 
-// ---------- CARRUSEL AUTOMÁTICO ----------
+// Carrusel automático
 let indiceSlide = 0;
 const slides = document.querySelectorAll('.carrusel .slide');
 
@@ -194,4 +226,4 @@ function cambiarSlide() {
   slides[indiceSlide].classList.add('activo');
 }
 
-setInterval(cambiarSlide, 4000); // cambia cada 4 segundos
+setInterval(cambiarSlide, 4000);
