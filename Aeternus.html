@@ -41,6 +41,14 @@
   <header>
     <div class="nav">
       <div class="logo">Aeternus</div>
+      
+      <!-- Menú Hamburguesa -->
+      <div class="menu-hamburguesa" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
       <nav>
         <a href="#">Inicio</a>
         <a href="#Nosotros">Nosotros</a>
@@ -48,9 +56,10 @@
         <a href="#Catalogo">Catálogo</a>
         <a href="#" onclick="mostrarLogin()">Registrate</a>
       </nav>
+      
       <div class="carrito-icono" onclick="abrirCarrito()">
-  🛒  <span id="contadorCarrito">0</span>
-</div>
+        🛒 <span id="contadorCarrito">0</span>
+      </div>
     </div>
   </header>
 
@@ -127,38 +136,39 @@
   <!-- Catálogo -->
   <section id="Catalogo" class="catalogo fade-in">
     <!-- Productos (idénticos a la versión anterior) -->
-    <div class="producto" onclick="abrirModal('Raíces del Alma','RD$180','./Imgs/IMG-20251114-WA0010.jpg')">
-      <img src="./Imgs/IMG-20251114-WA0010.jpg" alt="Pulsera #1">
+    <div class="producto" onclick="abrirModal('Raíces del Alma','RD$180','./Imgs/1.jpeg')">
+      <img src="./Imgs/1.jpeg" alt="Pulsera #1">
       <div class="info-prod"><h3>Pulsera Raíces del Alma</h3><div class="precio">RD$180</div></div>
     </div>
-    <div class="producto" onclick="abrirModal('Luz de Luna','RD$180','./Imgs/IMG-20251114-WA0009.jpg')">
-      <img src="./Imgs/IMG-20251114-WA0009.jpg" alt="Pulsera #2">
+    <div class="producto" onclick="abrirModal('Luz de Luna','RD$180','./Imgs/2.jpeg')">
+      <img src="./Imgs/2.jpeg" alt="Pulsera #2">
       <div class="info-prod"><h3>Pulsera Luz de Luna</h3><div class="precio">RD$180</div></div>
     </div>
-    <div class="producto" onclick="abrirModal('Noche Real','RD$180','./Imgs/IMG-20251114-WA0005.jpg')">
-      <img src="./Imgs/IMG-20251114-WA0005.jpg" alt="Pulsera #3">
+    <div class="producto" onclick="abrirModal('Noche Real','RD$180','./Imgs/3.jpeg')">
+      <img src="./Imgs/3.jpeg" alt="Pulsera #3">
       <div class="info-prod"><h3>Pulsera Noche Real</h3><div class="precio">RD$180</div></div>
     </div>
-    <div class="producto" onclick="abrirModal('Almas Gemelas','RD$180','./Imgs/IMG-20251114-WA0006.jpg')">
-      <img src="./Imgs/IMG-20251114-WA0006.jpg" alt="Pulsera #4">
+    <div class="producto" onclick="abrirModal('Almas Gemelas','RD$180','./Imgs/4.jpeg')">
+      <img src="./Imgs/4.jpeg" alt="Pulsera #4">
       <div class="info-prod"><h3>Pulsera Almas Gemelas</h3><div class="precio">RD$180</div></div>
     </div>
-    <div class="producto" onclick="abrirModal('Armonía Sagrada','RD$180','./Imgs/IMG-20251114-WA0007.jpg')">
-      <img src="./Imgs/IMG-20251114-WA0007.jpg" alt="Pulsera #5">
+    <div class="producto" onclick="abrirModal('Armonía Sagrada','RD$180','./Imgs/5.jpeg')">
+      <img src="./Imgs/5.jpeg" alt="Pulsera #5">
       <div class="info-prod"><h3>Pulsera Armonía Sagrada</h3><div class="precio">RD$180</div></div>
     </div>
-    <div class="producto" onclick="abrirModal('Cielo Alterno','RD$180','./Imgs/IMG-20251114-WA0008.jpg')">
-      <img src="./Imgs/IMG-20251114-WA0008.jpg" alt="Pulsera #6">
+    <div class="producto" onclick="abrirModal('Cielo Alterno','RD$180','./Imgs/6.jpeg')">
+      <img src="./Imgs/6.jpeg" alt="Pulsera #6">
       <div class="info-prod"><h3>Pulsera Cielo Alterno</h3><div class="precio">RD$180</div></div>
     </div>
-    <div class="producto" onclick="abrirModal('Raíz Nómada','RD$180','./Imgs/IMG-20251114-WA0004.jpg')">
-      <img src="./Imgs/IMG-20251114-WA0004.jpg" alt="Pulsera #7">
+    <div class="producto" onclick="abrirModal('Raíz Nómada','RD$180','./Imgs/7.jpeg')">
+      <img src="./Imgs/7.jpeg" alt="Pulsera #7">
       <div class="info-prod"><h3>Pulsera Raíz Nómada</h3><div class="precio">RD$180</div></div>
     </div>
-    <div class="producto" onclick="abrirModal('Nudo del Destino','RD$180','./Imgs/IMG-20251114-WA0003.jpg')">
-      <img src="./Imgs/IMG-20251114-WA0003.jpg" alt="Pulsera #8">
+    <div class="producto" onclick="abrirModal('Nudo del Destino','RD$180','./Imgs/8.jpeg')">
+      <img src="./Imgs/8.jpeg" alt="Pulsera #8">
       <div class="info-prod"><h3>Pulsera Nudo del Destino</h3><div class="precio">RD$180</div></div>
     </div>
+  </section>
 
 <section id="personalizados" class="personalizados fade-in">
   <h2>Pedidos Personalizados</h2>
@@ -186,6 +196,7 @@
       </select>
     </div>
 
+    <div class="fila">
       <!-- Tamaño -->
       <select id="tamano" name="tamano">
         <option value="" disabled selected>Selecciona el tamaño</option>
@@ -221,7 +232,6 @@
     </div>
   </div>
 </div>
-  </section>
 
   <!-- Modal del carrito -->
 <div id="modalCarrito" class="modal-carrito">
@@ -248,7 +258,7 @@
   </div>
 
   <div class="derechos">
-    <p>© 2025 Aeternus — Todos los derechos reservados.</p>
+    <p>© 2025 Aeternus – Todos los derechos reservados.</p>
   </div>
 </footer> 
 
